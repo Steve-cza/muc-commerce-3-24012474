@@ -1,0 +1,27 @@
+.DS_Store
+Thumbs.db
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.ipynb_checkpoints/
+.pytest_cache/
+*.log
+~$*.xlsx
+.~*.xlsx
+
+# 不要把教师答案放入学生仓库
+*teacher_demo*.ipynb
+*teacher_reference*.ipynb
+
+# 辅助脚本（非交付物）
+run_all.py
+update_notebooks.py
+
+# 种子压缩包
+*.zip
+
+# macOS 元数据
+._*
+.DS_Store
