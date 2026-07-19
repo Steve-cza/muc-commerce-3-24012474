@@ -1,116 +1,63 @@
-# Day 07 · 电商用户行为分析实训
-
-## Web 数据展示项目：登录、看板、筛选与离线问答
-
----
-
-## 基本信息
-
-- **姓名**：（请填写）
-- **学号**：（请填写）
-- **项目**：电商用户行为分析 Web 数据展示
-- **数据来源**：第5天统计分析 + 第6天可视化图表
-
----
-
-## 核心功能
-
-| 功能 | 说明 |
-|---|---|
-| **登录闭环** | Session 简化登录，账号 `student` / 密码 `day07` |
-| **数据看板** | 4个核心指标卡 + 4张图表 + 生命周期表格 |
-| **品类筛选** | 下拉框切换品类，URL 同步参数，实时刷新 |
-| **离线问答** | 5类支持问题 + 不支持问题友好提示 |
-| **拓展A** | 导出当前筛选结果 CSV |
-| **拓展B** | 生命周期详情页 `/segments` |
-| **拓展C** | Flask 自动化测试 |
-
----
-
-## 项目结构
-
-```
-Day07/
-├── app.py                      # Flask 主应用
-├── requirements.txt            # 依赖列表
-├── README.md                   # 本文件
-├── .gitignore
-├── data/                       # 数据文件（只读）
-│   ├── E Commerce Dataset.xlsx
-│   ├── overall_metrics.csv
-│   ├── segment_analysis.csv
-│   ├── cross_analysis.csv
-│   └── chart_manifest.csv
-├── services/
-│   ├── __init__.py
-│   ├── data_service.py         # 数据读取与处理
-│   └── qa_service.py           # 离线问答逻辑
-├── templates/
-│   ├── login.html              # 登录页
-│   ├── dashboard.html          # 数据看板
-│   └── segments.html           # 生命周期详情
-├── static/
-│   └── images/                 # 第6天图表
-│       ├── 01_category_bar.png
-│       ├── 02_behavior_scatter.png
-│       ├── 03_ordered_line.png
-│       ├── 04_composition_chart.png
-│       └── day06_visualization_summary.png
-├── screenshots/                # 验收截图
-│   ├── 01_login.png
-│   ├── 02_dashboard.png
-│   ├── 03_interaction.png
-│   ├── 04_assistant.png
-│   └── 05_extension.png
-└── tests/
-    └── test_app.py             # 自动化测试
-```
-
----
+# 第7天学生项目：电商用户分析Web系统
 
 ## 运行方法
 
 ```bash
-# 安装依赖
-pip install -r requirements.txt
-
-# 启动 Flask
+python -m pip install -r requirements.txt
 python app.py
-
-# 浏览器访问 http://127.0.0.1:5000
 ```
 
----
+浏览器访问 `http://127.0.0.1:5000`。
 
-## 验收账号
+- 用户名：`student`
+- 密码：`day07`
 
-| 账号 | 密码 |
-|---|---|
-| `student` | `day07` |
+## 上午停止线
 
----
+上午只完成以下内容：
 
-## 拓展任务
+1. 建立并重命名个人项目；
+2. 从VS Code终端启动Flask；
+3. 测试正确登录、错误登录、访问拦截和退出；
+4. 定位`app.py`、`services`、`templates`、`static`和`data`；
+5. 核对已有2张指标卡、1张图和“总用户数”问答；
+6. 搜索TODO，但暂不修改`TODO 2-1`至`TODO 4-1`。
 
-本次完成 **拓展A + 拓展B + 拓展C** 全部三项：
+## 下午核心任务
 
-- **拓展A**：`/download?category=Fashion` 导出筛选 CSV
-- **拓展B**：`/segments` 生命周期详情页，含数据观察
-- **拓展C**：`pytest tests/test_app.py` 自动化测试覆盖登录、看板、问答
+1. 检查并解释登录、退出和登录访问控制；
+2. 完成4张指标卡和2张真实图表；
+3. 完成偏好品类筛选；
+4. 完成至少4类离线规则问答；
+5. 在`screenshots`目录保存4张核心验收截图；
+6. 完成一项必选拓展；
+7. 修改本文件，填写个人信息、完成功能、拓展说明和未解决问题。
 
----
+使用编辑器搜索`TODO`即可找到需要完成的位置。
 
-## 未解决问题
+## 必选拓展（三选一）
 
-（如有请填写）
+### A. 导出当前筛选结果
 
----
+新增CSV下载功能，导出内容必须与当前`category`筛选一致。
 
-## 评分项对照
+### B. 生命周期详情页
 
-| 评分项 | 状态 |
-|---|---|
-| 核心TODO与数据展示 (60分) | ✅ 完成 |
-| 登录、筛选与问答验收 (15分) | ✅ 完成 |
-| 必选拓展三选一 (15分) | ✅ 完成（三项全选） |
-| README、证据与现场演示 (10分) | ✅ 完成 |
+新增`/segments`页面，展示各生命周期阶段的用户数、流失人数和流失率。
+
+### C. Flask自动化测试
+
+新增`tests/`目录，至少测试正确登录、未登录访问看板和`/api/ask`。
+
+完成后必须填写下面的拓展信息，并提供`screenshots/05_extension.png`、`test_result.txt`或`tests/`测试文件作为证据。
+
+## 学生信息
+
+- 姓名：TODO
+- 学号：TODO
+- 专题方向：TODO
+- 已完成功能：TODO
+- 选择的拓展任务：TODO
+- 拓展访问或运行方法：TODO
+- 拓展证据文件：TODO
+- 尚未解决的问题：TODO

@@ -1,127 +1,87 @@
-"""
-电商用户行为分析 Web 数据展示项目 (Day 07)
-Flask Web 系统：登录、看板、筛选与离线问答
-"""
-import os
-from datetime import timedelta
+from functools import wraps
+from pathlib import Path
 
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify, make_response, send_file
-from services.data_service import get_overall_metrics, get_segment_analysis, get_cross_analysis, get_category_data, get_filtered_data, get_download_data
-from services.qa_service import get_qa_response
+from flask import Flask, flash, jsonify, redirect, render_template, request, session, url_for
+
+from services.data_service import load_dashboard_data
+from services.qa_service import answer_question
+
+
+BASE_DIR = Path(__file__).resolve().parent
 
 app = Flask(__name__)
-app.secret_key = "day07_secret_key_change_me"
-app.permanent_session_lifetime = timedelta(minutes=30)
+app.config["SECRET_KEY"] = "day07-classroom-demo-key"
 
-# ==================== 登录 ====================
-VALID_USERS = {"student": "day07"}
+
+def login_required(view):
+    @wraps(view)
+    def wrapped_view(*args, **kwargs):
+        if "username" not in session:
+            flash("请先登录后再访问数据看板。", "warning")
+            return redirect(url_for("login"))
+        return view(*args, **kwargs)
+
+    return wrapped_view
 
 
 @app.route("/")
 def index():
-    if "user" in session:
-        return redirect(url_for("dashboard"))
-    return render_template("login.html")
+    return redirect(url_for("dashboard") if "username" in session else url_for("login"))
 
 
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    username = request.form.get("username", "").strip()
-    password = request.form.get("password", "").strip()
-    if username in VALID_USERS and VALID_USERS[username] == password:
-        session["user"] = username
-        session.permanent = True
-        return redirect(url_for("dashboard"))
-    return render_template("login.html", error="账号或密码错误"), 401
+    if request.method == "POST":
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "")
+        if username == "student" and password == "day07":
+            session["username"] = username
+            flash("登录成功，欢迎进入电商用户分析系统。", "success")
+            return redirect(url_for("dashboard"))
+        flash("账号或密码错误。演示账号：student / day07", "danger")
+    return render_template("login.html")
 
 
 @app.route("/logout")
 def logout():
     session.clear()
-    return redirect(url_for("index"))
+    flash("你已安全退出。", "success")
+    return redirect(url_for("login"))
 
 
-# ==================== 看板 ====================
 @app.route("/dashboard")
+@login_required
 def dashboard():
-    if "user" not in session:
-        return redirect(url_for("index"))
-
-    category = request.args.get("category", "all")
-    metrics = get_overall_metrics()
-    segments = get_segment_analysis()
-    cross = get_cross_analysis()
-    category_data = get_category_data()
-
-    # 筛选
-    filtered_df = get_filtered_data(category)
-    filtered_metrics = None
-    if category != "all" and not filtered_df.empty:
-        filtered_metrics = {
-            "总用户数": int(filtered_df["CustomerID"].nunique()),
-            "流失用户数": int(filtered_df[filtered_df["Churn"] == 1]["CustomerID"].nunique()),
-            "总体流失率": f"{filtered_df['Churn'].mean() * 100:.1f}%",
-            "平均订单数": f"{filtered_df['OrderCount'].mean():.2f}",
-        }
-
+    category = request.args.get("category", "全部")
+    dashboard_data = load_dashboard_data(BASE_DIR, category)
     return render_template(
         "dashboard.html",
-        metrics=metrics,
-        segments=segments.to_dict("records"),
-        cross=cross.to_dict("records"),
-        category_data=list(category_data.keys()),
-        current_category=category,
-        filtered_metrics=filtered_metrics,
+        username=session["username"],
+        selected_category=category,
+        **dashboard_data,
     )
 
 
-# ==================== API ====================
+@app.route("/assistant")
+@login_required
+def assistant():
+    return render_template("assistant.html", username=session["username"])
+
+
 @app.route("/api/ask", methods=["POST"])
-def api_ask():
-    """离线问答 API"""
-    data = request.get_json()
-    question = data.get("question", "").strip() if data else ""
+@login_required
+def ask():
+    payload = request.get_json(silent=True) or {}
+    question = str(payload.get("question", "")).strip()
     if not question:
-        return jsonify({"answer": "请输入您的问题。"}), 400
-    answer = get_qa_response(question)
-    return jsonify({"question": question, "answer": answer})
+        return jsonify({"ok": False, "answer": "请输入一个与项目数据有关的问题。"}), 400
+    return jsonify({"ok": True, "answer": answer_question(BASE_DIR, question)})
 
 
-@app.route("/api/categories")
-def api_categories():
-    """获取品类列表"""
-    if "user" not in session:
-        return jsonify({"error": "未登录"}), 401
-    cats = ["all"] + list(get_category_data().columns)
-    return jsonify({"categories": cats})
-
-
-# ==================== 拓展A：下载筛选结果 ====================
-@app.route("/download")
-def download_filtered():
-    """导出当前筛选条件的 CSV"""
-    category = request.args.get("category", "all")
-    df = get_download_data(category)
-    if df.empty:
-        return jsonify({"error": "没有可导出的数据"}), 400
-
-    filename = f"filtered_data_{category}.csv" if category != "all" else "filtered_data_all.csv"
-    csv_data = df.to_csv(index=False, encoding="utf-8-sig")
-    response = make_response(csv_data)
-    response.headers["Content-Disposition"] = f"attachment; filename={filename}"
-    response.headers["Content-Type"] = "text/csv; charset=utf-8-sig"
-    return response
-
-
-# ==================== 拓展B：生命周期详情页 ====================
-@app.route("/segments")
-def segments_page():
-    if "user" not in session:
-        return redirect(url_for("index"))
-    segments = get_segment_analysis()
-    cross = get_cross_analysis()
-    return render_template("segments.html", segments=segments.to_dict("records"), cross=cross.to_dict("records"))
+@app.errorhandler(404)
+def page_not_found(_error):
+    return render_template("404.html"), 404
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(debug=False, port=5000)
