@@ -1,4 +1,6 @@
 from functools import wraps
+from io import StringIO
+
 from pathlib import Path
 
 from flask import Flask, flash, jsonify, redirect, render_template, request, session, url_for
@@ -20,7 +22,6 @@ def login_required(view):
             flash("请先登录后再访问数据看板。", "warning")
             return redirect(url_for("login"))
         return view(*args, **kwargs)
-
     return wrapped_view
 
 
@@ -59,6 +60,34 @@ def dashboard():
         username=session["username"],
         selected_category=category,
         **dashboard_data,
+    )
+
+
+@app.route("/segments")
+@login_required
+def segments():
+    segment_df = pd.read_csv(BASE_DIR / "data" / "segment_analysis.csv", encoding="utf-8-sig")
+    segment_df["流失率"] = segment_df["流失率"].map(lambda v: f"{v:.1%}")
+    segment_df["流失人数"] = segment_df["流失人数"].astype(int)
+    segment_df["用户数"] = segment_df["用户数"].astype(int)
+    return render_template("segments.html", username=session["username"], segments=segment_df.to_dict("records"))
+
+
+@app.route("/download")
+@login_required
+def download():
+    category = request.args.get("category", "全部")
+    data_dir = BASE_DIR / "data"
+    category_df = pd.read_csv(data_dir / "category_analysis.csv", encoding="utf-8-sig")
+    if category != "全部":
+        category_df = category_df[category_df["PreferedOrderCat"] == category]
+    csv_buffer = StringIO()
+    category_df.to_csv(csv_buffer, index=False, encoding="utf-8-sig")
+    from flask import Response
+    return Response(
+        csv_buffer.getvalue(),
+        mimetype="text/csv",
+        headers={"Content-Disposition": f"attachment;filename=category_{category}.csv"}
     )
 
 
