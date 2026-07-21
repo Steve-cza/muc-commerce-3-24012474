@@ -10,6 +10,7 @@
 ![Pandas](https://img.shields.io/badge/Pandas-2.0+-red.svg)
 ![pytest](https://img.shields.io/badge/tests-passing-brightgreen.svg)
 
+**👤 作者**: Steve-cza ｜ **🆔 学号**: 24012474
 **📅 实习周期**: Day 03 – Day 07 ｜ **🎯 主题**: 电商用户行为分析
 
 </div>

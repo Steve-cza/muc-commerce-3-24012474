@@ -3,7 +3,8 @@ from io import StringIO
 
 from pathlib import Path
 
-from flask import Flask, flash, jsonify, redirect, render_template, request, session, url_for
+import pandas as pd
+from flask import Flask, Response, flash, jsonify, redirect, render_template, request, session, url_for
 
 from services.data_service import load_dashboard_data
 from services.qa_service import answer_question
@@ -83,7 +84,6 @@ def download():
         category_df = category_df[category_df["PreferedOrderCat"] == category]
     csv_buffer = StringIO()
     category_df.to_csv(csv_buffer, index=False, encoding="utf-8-sig")
-    from flask import Response
     return Response(
         csv_buffer.getvalue(),
         mimetype="text/csv",
