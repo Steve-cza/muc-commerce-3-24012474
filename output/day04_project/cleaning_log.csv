@@ -1,0 +1,9 @@
+﻿操作,影响行数
+删除完全重复行,0
+中位数填补 Tenure,264
+中位数填补 WarehouseToHome,251
+中位数填补 HourSpendOnApp,255
+中位数填补 OrderCount,258
+中位数填补 DaySinceLastOrder,307
+类别标准化 PreferredLoginDevice,1231
+类别标准化 PreferredPaymentMode,638

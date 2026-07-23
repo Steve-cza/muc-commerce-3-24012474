@@ -1,0 +1,4 @@
+﻿规则,不合规记录数
+Tenure 不能为负数,0
+HourSpendOnApp 应在 0-24,0
+NumberOfAddress 不应异常高,2

@@ -286,49 +286,34 @@
 muc-commerce-3-24012474/
 ├── README.md                         # 项目主页（本文件）
 ├── SUBMISSION_CHECKLIST.md           # 提交检查清单
-├── data/                             # 共享原始数据
-│   ├── 淘宝全品类全国数据.csv         # Day 03 原始数据
-│   └── E Commerce Dataset.xlsx       # Day 04-10 原始数据
-├── scripts/                          # 共享验证脚本
+├── requirements.txt                  # 主项目依赖
 │
-├── day03_pandas_basics/              # Day 03: Pandas基础
-│   ├── notebooks/day03_*.ipynb       #     Pandas探索分析
-│   └── output/                       #     category + province 汇总
-│
-├── day04_data_cleaning/              # Day 04: 数据清洗
-│   ├── notebooks/day04_*.ipynb       #     清洗流水线
-│   └── output/                       #     6个清洗报告文件
-│
-├── day05_user_analysis/              # Day 05: 用户分析
-│   ├── notebooks/day05_*.ipynb       #     RFM + 生命周期
-│   └── output/                       #     overall/segment/cross
-│
-├── day06_visualization/              # Day 06: 可视化
-│   ├── notebooks/day06_*.ipynb       #     4张图表
-│   └── output/                       #     4PNG + chart_manifest
-│
-├── day07_web_app/                    # Day 07: Flask Web
-│   ├── app.py                        #     主应用
-│   ├── services/                     #     业务逻辑层
-│   ├── templates/                    #     Jinja2模板
-│   ├── static/                       #     前端资源+图表
-│   ├── tests/                        #     Flask自动化测试
-│   └── screenshots/                  #     验收截图
+├── app.py                            # Day 07: Flask 主应用
+├── services/                         # 业务逻辑层
+├── templates/                        # Jinja2 模板
+├── static/                           # 前端资源+图表
+├── tests/                            # 自动化测试
+├── screenshots/                      # 验收截图
+├── data/                             # 原始数据
+├── notebooks/                        # Day 03-06 Notebook
+├── output/                           # 各日分析产出
+├── scripts/                          # 验证脚本
 │
 ├── day08_flask_upgrade/              # Day 08: Flask API 升级
-│   ├── app.py                        #     API 路由
-│   ├── tests/test_api.py             #     9项测试全部通过 ✅
-│   └── services/                     #     数据服务
+│   ├── app.py                        # API 路由
+│   ├── services/data_service.py      # 数据服务
+│   ├── tests/test_api.py             # 9 项自动化测试 ✅
+│   └── output/                       # 验证结果
 │
 ├── day09_ml_preparation/             # Day 09: ML 预处理
-│   ├── notebooks/                    #     特征工程Notebook
-│   ├── run_day09.py                  #     完整运行脚本
-│   └── output/                       #     4个成果文件
+│   ├── notebooks/                    # 特征工程 Notebook
+│   ├── run_day09.py                  # 完整运行脚本
+│   └── output/                       # 4 个成果文件
 │
 └── day10_model_comparison/           # Day 10: 模型比较
-    ├── notebooks/                    #     三分类模型Notebook
-    ├── run_day10.py                  #     完整运行脚本
-    └── output/                       #     9个成果文件（含模型）
+    ├── notebooks/                    # 三分类模型 Notebook
+    ├── run_day10.py                  # 完整运行脚本
+    └── output/                       # 9 个成果文件（含模型）
 ```
 
 ---

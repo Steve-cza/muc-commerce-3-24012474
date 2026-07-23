@@ -17,9 +17,9 @@ REQUIRED_NOTEBOOKS = [
 ]
 
 REQUIRED_OUTPUTS = [
-    "day03_pandas_basics/output/category_summary.csv",
-    "day03_pandas_basics/output/province_summary.csv",
-    "day04_data_cleaning/output/ecommerce_customer_cleaned.csv",
+    "output/day03_analysis/category_summary.csv",
+    "output/day03_analysis/province_summary.csv",
+    "output/day04_project/ecommerce_customer_cleaned.csv",
     "output/day04_project/data_quality_before.csv",
     "output/day04_project/data_quality_after.csv",
     "output/day04_project/cleaning_log.csv",

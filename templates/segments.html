@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}生命周期分析 | 电商用户分析系统{% endblock %}
+{% block content %}
+<section class="hero compact">
+  <div>
+    <p class="eyebrow">LIFECYCLE ANALYSIS</p>
+    <h1>用户生命周期阶段分析</h1>
+    <p class="lead">展示各生命周期阶段的用户分布、流失情况和风险等级。</p>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>各阶段数据明细</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>生命周期阶段</th><th>用户数</th><th>流失人数</th><th>流失率</th><th>平均订单数</th><th>平均返现</th><th>平均距上次下单天数</th></tr></thead>
+      <tbody>
+        {% for seg in segments %}
+        <tr>
+          <td>{{ seg['TenureGroup'] }}</td>
+          <td>{{ seg['用户数'] }}</td>
+          <td>{{ seg['流失人数'] }}</td>
+          <td>{{ seg['流失率'] }}</td>
+          <td>{{ seg['平均订单数'] }}</td>
+          <td>{{ seg['平均返现'] }}</td>
+          <td>{{ seg['平均距上次下单天数'] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<aside class="insight"><strong>风险提示：</strong>新用户阶段流失率最高，需重点优化新用户留存策略。</aside>
+{% endblock %}
