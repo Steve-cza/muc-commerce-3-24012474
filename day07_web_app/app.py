@@ -10,7 +10,7 @@ from services.data_service import load_dashboard_data
 from services.qa_service import answer_question
 
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "day07-classroom-demo-key"
