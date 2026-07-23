@@ -1,170 +1,265 @@
-# 🛒 E-Commerce User Analysis System
+# 🛒 电商用户行为数据分析系统 · 全栈实训项目
 
-> **电商用户行为数据分析与可视化 Web 系统**  
-> 基于 Python + Pandas + Flask 的完整数据分析项目，覆盖数据清洗 → 统计分析 → 可视化 → Web 应用开发全流程。
+> **从数据清洗到机器学习，从 Web 应用到模型部署 — 十天完整实训旅程**  
+> 基于 Python + Pandas + Flask + Scikit-learn 的企业级数据分析全流程项目
 
 <div align="center">
 
 ![Python](https://img.shields.io/badge/Python-3.12+-blue.svg)
 ![Flask](https://img.shields.io/badge/Flask-3.0+-green.svg)
 ![Pandas](https://img.shields.io/badge/Pandas-2.0+-red.svg)
+![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.3+-orange.svg)
 ![pytest](https://img.shields.io/badge/tests-passing-brightgreen.svg)
+![Machine Learning](https://img.shields.io/badge/ML-Logistic--DT--RF-ff69b4.svg)
 
-**👤 作者**: Steve-cza ｜ **🆔 学号**: 24012474
-**📅 实习周期**: Day 03 – Day 07 ｜ **🎯 主题**: 电商用户行为分析
+**👤 作者**: 陈子昂 ｜ **🆔 学号**: 24012474  
+**📅 实训周期**: Day 03 – Day 10 ｜ **🎯 主题**: 电商用户行为分析与流失预测
 
 </div>
 
 ---
 
-## 📊 项目概览
+## 📋 项目全景
 
-本项目以 **淘宝全品类全国电商数据集** 为基础，通过 5 天的系统化训练，完成从原始数据到交互式 Web 数据分析应用的完整流程。
+本项目以 **淘宝电商用户数据集**（5,630 名用户，22 个特征）为核心，通过 **10 天系统化实训**，完成了从原始数据清洗到机器学习模型部署的全链路数据科学项目。
 
-### 数据源
-
-| 数据集 | 描述 | 规模 |
-|--------|------|------|
-| 淘宝全品类全国数据.csv | 用户行为日志（浏览、加购、收藏、购买） | ~10万+条 |
-| E Commerce Dataset.xlsx | 用户画像与交易数据 | 5,630 名用户 |
+| 阶段 | 天数 | 核心主题 | 技术栈 |
+|:----:|:----:|---------|--------|
+| 📊 基础分析 | Day 03–04 | NumPy/Pandas 数据处理 & 数据清洗 | Python, Pandas, NumPy |
+| 🔍 业务分析 | Day 05 | 用户流失分析与 RFM 分群 | Pandas, 统计分析 |
+| 📈 可视化 | Day 06 | 数据可视化与洞察提炼 | Matplotlib, Seaborn |
+| 🌐 Web 应用 | Day 07 | Flask 交互式数据看板 | Flask, HTML/CSS/JS |
+| ⚡ API 升级 | Day 08 | Flask API 强化 + 自动化测试 | Flask, pytest |
+| 🧠 机器学习 | Day 09 | 特征工程与预处理流水线 | Scikit-learn Pipeline |
+| 🤖 模型比较 | Day 10 | 三分类模型训练、比较与部署 | LR/DT/RF, joblib |
 
 ---
 
-## 🗓️ 每日任务总览
+## 🗓️ 每日任务详解
 
-### Day 03 — NumPy & Pandas 基础
+### Day 03 — NumPy & Pandas 基础运算
+> **掌握数据分析核心库的基础操作**
 
-**目标**: 掌握数据分析核心库的基础操作
-
-- ✅ NumPy 数组运算、矩阵操作
-- ✅ Pandas DataFrame 创建、索引、筛选
-- ✅ 商品维度统计分析（品类分布、价格区间、销量排名）
-- ✅ 产出：`notebooks/day03_pandas_product_analysis.ipynb`
-
-**核心技能**:
-```
-NumPy 基础 → Pandas 入门 → 商品数据分析 → 统计摘要生成
-```
+- NumPy 数组运算、矩阵操作、广播机制
+- Pandas DataFrame 创建、索引、筛选、分组聚合
+- 商品维度统计分析：品类分布、价格区间、销量排名
+- 📁 `notebooks/day03_pandas_product_analysis.ipynb`
 
 ### Day 04 — 数据清洗与预处理
+> **真实场景中的数据清洗完整流程**
 
-**目标**: 掌握真实场景中的数据清洗流程
-
-- ✅ 缺失值检测与处理（填充/删除策略）
-- ✅ 异常值识别与修正（IQR 方法、Z-Score）
-- ✅ 数据类型转换与标准化
-- ✅ 用户行为数据清洗流水线
-- ✅ 产出：`ecommerce_customer_cleaned.csv`（清洗后数据集）
-
-**清洗成果**:
-```
-原始数据 → 去重 → 缺失值处理 → 异常值修正 → 标准化 → 清洗后数据
-```
+- 缺失值检测与处理（中位数填充 / 删除策略）
+- 异常值识别与修正（IQR 方法、Z-Score）
+- 数据类型转换与标准化
+- 用户行为数据清洗流水线
+- 📁 产出：`ecommerce_customer_cleaned.csv`
 
 ### Day 05 — 用户流失分析与分群
+> **RFM 模型 + 用户生命周期理论**
 
-**目标**: 运用 RFM 模型和用户生命周期理论进行深度分析
-
-- ✅ 用户生命周期阶段划分（新用户/成长期/成熟期/休眠期/流失期）
-- ✅ RFM 模型构建（Recency, Frequency, Monetary）
-- ✅ 用户分群与特征提取
-- ✅ 流失用户识别与风险评分
-- ✅ 产出：`day05_pm_student_project.ipynb` + 用户分群报告
-
-**分析维度**:
-```
-生命周期阶段 → 用户数 → 流失率 → 平均订单数 → 平均返现 → 风险评级
-```
+- 用户生命周期划分：新用户 / 0-6月 / 7-12月 / 13-24月 / 24月+
+- RFM 模型构建（Recency, Frequency, Monetary）
+- 流失用户识别与交叉分析
+- 📁 `notebooks/day05_pm_student_project.ipynb`
 
 ### Day 06 — 数据可视化
+> **将分析结果转化为可视化图表**
 
-**目标**: 将分析结果转化为直观的可视化图表
+| 图表 | 类型 | 分析内容 |
+|:----:|:----:|---------|
+| 01 | 📊 柱状图 | 不同偏好品类的用户分布 |
+| 02 | 🔵 散点图 | 用户行为特征关系 |
+| 03 | 📈 折线图 | 生命周期阶段趋势 |
+| 04 | 🥧 组合图 | 用户构成综合分析 |
 
-- ✅ Matplotlib / Seaborn 高级图表绘制
-- ✅ 品类用户比较柱状图（01_category_bar.png）
-- ✅ 用户行为散点图（02_behavior_scatter.png）
-- ✅ 生命周期趋势折线图（03_ordered_line.png）
-- ✅ 用户构成饼图/堆叠图（04_composition_chart.png）
-- ✅ 可视化总结面板（day06_visualization_summary.png）
-- ✅ 产出：`output/day06_visualization/` 目录
-
-**图表清单**:
-| 图表编号 | 类型 | 内容 |
-|---------|------|------|
-| 01 | 柱状图 | 不同偏好品类用户比较 |
-| 02 | 散点图 | 用户行为特征分布 |
-| 03 | 折线图 | 生命周期阶段趋势 |
-| 04 | 组合图 | 用户构成分析 |
-
-### Day 07 — Flask Web 应用开发 ⭐
-
-**目标**: 将分析成果封装为交互式 Web 应用
-
-#### 系统架构
+### Day 07 — Flask Web 应用
+> **将分析成果封装为交互式 Web 系统**
 
 ```
-┌─────────────────────────────────────────────┐
-│              Flask Web App (Day 07)           │
-├──────────┬──────────┬───────────┬────────────┤
-│  登录系统 │ 数据看板  │ 智能问答  │ 生命周期   │
-│ /login   │ /dashboard│ /api/ask │ /segments  │
-│ /logout  │ /download│ /assistant│            │
-└──────────┴──────────┴───────────┴────────────┘
-         ↓              ↓            ↓
-   ┌─────────────────────────────────────┐
-   │       services/ 业务逻辑层           │
-   │  data_service.py │ qa_service.py   │
-   └─────────────────────────────────────┘
-         ↓
-   ┌─────────────────────────────────────┐
-   │         data/ 数据层                 │
-   │  overall_metrics.csv                │
-   │  category_analysis.csv              │
-   │  segment_analysis.csv               │
-   └─────────────────────────────────────┘
+┌──────────────────────────────────────────────────┐
+│                  Flask Web 系统                    │
+├──────────┬──────────┬──────────┬─────────────────┤
+│ 🔐 登录   │ 📊 看板  │ 🤖 问答  │ 📈 生命周期     │
+│ /login   │ /dashboard│ /api/ask │ /segments       │
+│ /logout  │ /download │ /assistant│                 │
+└──────────┴──────────┴──────────┴─────────────────┘
+     ↓           ↓           ↓           ↓
+┌──────────────────────────────────────────────────┐
+│              services/ 业务逻辑层                 │
+│     data_service.py ｜ qa_service.py             │
+└──────────────────────────────────────────────────┘
+     ↓
+┌──────────────────────────────────────────────────┐
+│         data/ 数据层 + static/ 前端资源           │
+└──────────────────────────────────────────────────┘
 ```
 
-#### 功能模块
+### Day 08 — Flask API 升级与测试 ⚡
+> **将页面功能升级为可测试的 JSON API**
 
-| 模块 | 路由 | 功能 |
-|------|------|------|
-| 🔐 登录系统 | `GET/POST /login` | 用户认证，Session 管理 |
-| 📊 数据看板 | `GET /dashboard` | 4张指标卡 + 2张图表 + 品类筛选 |
-| 🤖 智能问答 | `GET /assistant` + `POST /api/ask` | 5类离线规则问答 |
-| 📈 生命周期 | `GET /segments` | 各阶段用户数/流失率明细表 |
-| 📥 CSV导出 | `GET /download` | 按品类筛选结果导出 |
-| 🔍 404页面 | `GET /*` | 自定义错误页面 |
+**新增 API 接口：**
 
-#### 指标看板
+| 接口 | 方法 | 功能 | 状态 |
+|:----|:----:|------|:---:|
+| `/health` | GET | 服务健康检查 | ✅ |
+| `/api/metrics` | GET | 返回四张指标卡 JSON | ✅ |
+| `/api/categories` | GET | 品类列表（支持 `?category=Fashion` 筛选） | ✅ |
 
-| 指标卡 | 数值 | 单位 |
-|--------|------|------|
-| 总用户数 | 5,630 | 人 |
-| 流失用户 | 948 | 人 |
-| 总体流失率 | 16.8% | % |
-| 平均订单数 | 2.96 | 单 |
+**统一错误处理：**
+```json
+// 400 错误响应
+{"ok": false, "error": "请求格式不正确。"}
+```
 
-#### 智能问答（5类规则）
+**测试覆盖（9 项全部通过）：**
+```
+✅ /health 返回 200
+✅ 未登录访问被拦截（302 重定向）
+✅ 登录后 /api/metrics 返回完整数据
+✅ /api/categories 品类筛选正确
+✅ 登录认证（成功/失败）
+✅ 400/404 错误处理
+```
 
-1. **总用户数** → "系统中有多少用户？" → 5,630名
-2. **总体流失率** → "总体流失率是多少？" → 16.8%
-3. **偏好品类** → "哪个品类用户最多？" → Mobile Phone (2,080人)
-4. **生命周期风险** → "哪个阶段风险最高？" → 新用户 (53.5%)
-5. **平均订单数** → "平均订单数是多少？" → 2.96单
+📁 `day08_flask_upgrade/` — 完整项目 + `tests/test_api.py`
 
-#### 自动化测试
+### Day 09 — 机器学习准备：特征工程 🧠
+> **第一次接触机器学习 — 理解特征、标签与数据流水线**
+
+**核心概念理解：**
+- **样本**：一名用户
+- **特征**：判断时可查看的信息（使用月数、投诉情况等 20 个特征）
+- **标签**：希望预测的答案（Churn 是否流失）
+- **分类**：在"流失/未流失"中做出判断
+
+**数据流水线：**
+
+```
+原始数据 (5630×22)
+  → 排除 CustomerID + Churn
+  → 分层划分 (stratify=y) → 训练集 4504 / 测试集 1126
+  → 数值分支：中位数填充 + StandardScaler
+  → 类别分支：众数填充 + OneHotEncoder
+  → 36 列特征矩阵
+  → 最低参照线 (DummyClassifier)
+```
+
+**成果文件：**
+| 文件 | 内容 |
+|:----|------|
+| `feature_schema.csv` | 22 个字段的角色与处理方式 |
+| `split_summary.csv` | 训练/测试集规模与流失比例 |
+| `model_matrix_preview.csv` | 预处理后矩阵前 20 行 |
+| `baseline_metrics.csv` | 最低参照线：准确率 83.1%，流失召回率 **0%** |
+
+📁 `day09_ml_preparation/`
+
+### Day 10 — 三分类模型训练、比较与应用 🤖
+> **逻辑回归 vs 决策树 vs 随机森林 — 同一测试集公平较量**
+
+**模型比较结果：**
+
+| 模型 | 准确率 | 精确率 | 流失召回率 | 预测流失 | FN(漏报) | FP(误报) |
+|:----|:-----:|:------:|:---------:|:--------:|:--------:|:--------:|
+| ⚪ 最低参照线 | 83.1% | 0.0% | 0.0% | 0 | 190 | 0 |
+| 🔵 逻辑回归 | 80.3% | 45.4% | 82.6% | 346 | 33 | 189 |
+| 🟢 决策树 | 77.7% | 42.1% | 85.3% | 385 | 28 | 223 |
+| 🟡 **随机森林 🏆** | **88.0%** | **60.5%** | **83.2%** | 261 | **32** | **103** |
+
+**🏆 最终选择：随机森林 (Random Forest)**
+- 准确率最高（88.0%），远超最低参照线
+- 流失召回率优秀（83.2%），有效识别流失用户
+- 漏报人数低（FN=32），误报控制最佳（FP=103）
+- 100 棵树投票，比单棵决策树更稳定
+
+**业务应用：**
+- 输出 **261 名高风险客户** 优先关注名单
+- 模型已保存并验证：`output/selected_model.joblib`
+- 特征重要性 Top 3：`Tenure` > `Complain` > `TenureGroup_新用户`
+
+📁 `day10_model_comparison/` — 全部 9 个成果文件
+
+---
+
+## 📊 核心发现
+
+### 用户生命周期流失分析
+
+| 阶段 | 用户数 | 流失率 | 风险 | 建议策略 |
+|:----|:-----:|:-----:|:----:|---------|
+| 👶 新用户 | 508 | **53.5%** | 🔴 极高 | 新手引导 + 首单优惠 |
+| 🌱 0-6个月 | 1,642 | 25.9% | 🟠 高 | 活跃度激励 |
+| 🌿 7-12个月 | 1,584 | 9.8% | 🟡 中 | 交叉销售 |
+| 🌳 13-24个月 | 1,467 | 6.5% | 🟢 低 | 忠诚度维护 |
+| 🏆 24个月以上 | 429 | 0.0% | ✅ 稳定 | VIP 权益 |
+
+### 品类分析
+
+| 偏好品类 | 用户数 | 流失率 | 平均订单 | 特征 |
+|:--------|:-----:|:-----:|:--------:|------|
+| 📱 Mobile Phone | 2,080 | 27.4% | 2.18 | 用户最多，流失最高 |
+| 💻 Laptop & Accessory | 2,050 | 10.2% | 2.77 | 高价值用户群 |
+| 👗 Fashion | 826 | 15.5% | 3.87 | 高活跃度 |
+| 🛒 Grocery | 410 | 4.9% | 4.60 | 粘性最强 |
+| 📦 Others | 264 | 7.6% | 5.25 | 低频但忠诚 |
+
+### 机器学习重要发现
+
+- **Tenure（使用月数）** 是最重要的预测特征（贡献 28.9%）
+- **是否投诉** 是第二大特征（8.6%），说明投诉行为与流失高度相关
+- **新用户** 群体流失风险远高于老用户，验证了业务分析结论
+- 机器学习的结论与 Day 05 业务分析一致，形成 **数据→分析→模型→业务** 闭环
+
+---
+
+## 🚀 快速开始
+
+### 环境要求
+- Python 3.12+
+- 推荐虚拟环境
+
+### 分项目运行
 
 ```bash
-pytest tests/test_app.py
+# ├── Day 07: Flask Web 应用（根目录）
+# │   pip install -r requirements.txt
+# │   python app.py
+# │   → http://127.0.0.1:5000 (student/day07)
+# │   pytest tests/test_app.py
+# │
+# ├── Day 08: Flask API 升级
+# │   cd day08_flask_upgrade/
+# │   pip install -r requirements.txt
+# │   python app.py
+# │   → http://127.0.0.1:5500
+# │   pytest tests/test_api.py  (9项测试)
+# │
+# ├── Day 09: ML 数据预处理
+# │   cd day09_ml_preparation/
+# │   python run_day09.py
+# │   # 或使用 Jupyter:
+# │   jupyter notebook notebooks/day09_ml_preparation_student.ipynb
+# │
+# └── Day 10: 模型比较
+#     cd day10_model_comparison/
+#     python run_day10.py
+#     # 或使用 Jupyter:
+#     jupyter notebook notebooks/day10_model_comparison_student.ipynb
 ```
 
-测试覆盖：
-- ✅ 登录/登出/拦截
-- ✅ 看板页面渲染
-- ✅ API 问答接口
-- ✅ 品类筛选与CSV导出
-- ✅ 生命周期页面
-- ✅ 404错误处理
+---
+
+## 🛠️ 技术栈全景
+
+| 层级 | 技术 | 用途 |
+|:----|:----|:----|
+| 💾 数据处理 | Python, Pandas, NumPy | 数据清洗、特征工程、统计分析 |
+| 📊 可视化 | Matplotlib, Seaborn | 品类分布、趋势分析、构成图 |
+| 🌐 Web 框架 | Flask 3.x | REST API、模板渲染、会话管理 |
+| 🎨 前端 | HTML5, CSS3, Vanilla JS | 响应式看板、交互式问答 |
+| 🤖 机器学习 | Scikit-learn | Pipeline、LR/DT/RF、模型序列化 |
+| ✅ 测试 | pytest | Flask 测试、断言验证 |
+| 📦 版本控制 | Git, GitHub | 代码托管、提交管理 |
 
 ---
 
@@ -172,157 +267,77 @@ pytest tests/test_app.py
 
 ```
 muc-commerce-3-24012474/
-├── README.md                      # 项目主页（本文件）
-├── requirements.txt               # 依赖包
-├── SUBMISSION_CHECKLIST.md        # 提交检查清单
+├── README.md                         # 项目主页（本文件）
+├── requirements.txt                  # 主项目依赖
 │
-├── app.py                         # Flask 主应用
-├── services/
-│   ├── __init__.py
-│   ├── data_service.py            # 数据加载与处理
-│   └── qa_service.py              # 离线规则问答引擎
+├── app.py                            # Day 07: Flask 主应用
+├── services/                         # 业务逻辑层
+├── templates/                        # Jinja2 模板
+├── static/                           # 静态资源+图表
+├── tests/                            # 自动化测试
+├── data/                             # 原始数据
+├── output/                           # 分析产出
+├── notebooks/                        # Day 03-06 Notebook
+├── screenshots/                      # 验收截图
+├── scripts/                          # 验证脚本
 │
-├── templates/                     # Jinja2 模板
-│   ├── base.html                  # 基础布局
-│   ├── login.html                 # 登录页
-│   ├── dashboard.html             # 数据看板
-│   ├── assistant.html             # 智能问答
-│   ├── segments.html              # 生命周期页
-│   └── 404.html                   # 错误页
+├── day08_flask_upgrade/              # Day 08: Flask API 升级
+│   ├── app.py                        # API 路由 + TODO 完成
+│   ├── services/data_service.py      # 数据服务
+│   ├── tests/test_api.py             # 9 项自动化测试
+│   └── output/                       # 验证结果
 │
-├── static/
-│   ├── css/style.css              # 全局样式
-│   ├── js/assistant.js            # 问答前端逻辑
-│   └── images/                    # 可视化图表
-│       ├── 01_category_bar.png    # 品类柱状图
-│       ├── 02_behavior_scatter.png # 行为散点图
-│       ├── 03_ordered_line.png    # 趋势折线图
-│       ├── 04_composition_chart.png # 构成图
-│       └── day06_visualization_summary.png
+├── day09_ml_preparation/             # Day 09: ML 预处理
+│   ├── notebooks/                    # 学生 Notebook
+│   ├── run_day09.py                  # 完整运行脚本
+│   └── output/                       # 4 个成果文件
 │
-├── data/                          # 数据文件
-│   ├── overall_metrics.csv        # 整体指标汇总
-│   ├── category_analysis.csv      # 品类分析
-│   └── segment_analysis.csv       # 生命周期分群
-│
-├── screenshots/                   # 验收截图
-│   ├── 01_login.png
-│   ├── 02_dashboard.png
-│   ├── 03_interaction.png
-│   ├── 04_assistant.png
-│   └── README.md
-│
-├── tests/
-│   └── test_app.py                # Flask 自动化测试
-│
-├── ecommerce-user-analysis-seed/  # Day 03-05 种子项目
-│   ├── notebooks/                 # Jupyter 笔记本
-│   ├── docs/                      # 任务文档
-│   ├── scripts/                   # 验证脚本
-│   └── output/                    # 分析产出
-│
-├── day6/                          # Day 06 可视化项目
-│   ├── notebooks/                 # 可视化 Notebook
-│   ├── output/                    # 图表产出
-│   └── docs/                      # 教学材料
-│
-└── Day07/                         # Day 07 Web 应用（副本）
-    └── ... (同上)
+└── day10_model_comparison/           # Day 10: 模型比较
+    ├── notebooks/                    # 学生 Notebook
+    ├── run_day10.py                  # 完整运行脚本
+    └── output/                       # 9 个成果文件（含模型）
 ```
 
 ---
 
-## 🚀 快速开始
+## ✅ 提交检查清单
 
-### 环境要求
-
-- Python 3.12+
-- 推荐虚拟环境
-
-### 安装与运行
-
-```bash
-# 1. 安装依赖
-pip install -r requirements.txt
-
-# 2. 启动 Flask 应用
-python app.py
-
-# 3. 浏览器访问
-# http://127.0.0.1:5000
-# 登录账号: student / day07
-
-# 4. 运行自动化测试
-pytest tests/test_app.py
-```
+| 检查项 | 状态 |
+|:-------|:----:|
+| Day 03: NumPy/Pandas 基础分析 | ✅ |
+| Day 04: 数据清洗与预处理 | ✅ |
+| Day 05: 用户流失分析与分群 | ✅ |
+| Day 06: 数据可视化（4 张图表） | ✅ |
+| Day 07: Flask Web 应用 | ✅ |
+| Day 08: Flask API 升级 + 9 项测试 | ✅ |
+| Day 09: ML 特征工程 + 4 个成果文件 | ✅ |
+| Day 10: 三分类模型比较 + 9 个成果文件 | ✅ |
+| GitHub 提交 | ✅ |
 
 ---
 
-## 📈 核心发现
+## 📝 实训总结
 
-### 用户流失洞察
+本次实训从 **Day 03 到 Day 10**，完成了一个完整的电商用户分析项目：
 
-| 生命周期阶段 | 用户数 | 流失人数 | 流失率 | 风险等级 |
-|------------|--------|---------|--------|---------|
-| 👶 新用户 | 508 | 272 | **53.5%** | 🔴 极高 |
-| 🌱 0-6个月 | 1,642 | 425 | 25.9% | 🟠 高 |
-| 🌿 7-12个月 | 1,584 | 156 | 9.8% | 🟡 中 |
-| 🌳 13-24个月 | 1,467 | 95 | 6.5% | 🟢 低 |
-| 🏆 24个月以上 | 429 | 0 | 0.0% | ✅ 稳定 |
+1. **数据处理**：从原始 CSV 到清洗后的结构化数据
+2. **业务分析**：通过 RFM 和生命周期发现新用户流失率高达 53.5%
+3. **可视化呈现**：4 张专业图表直观展示分析结论
+4. **Web 系统**：Flask 框架构建交互式数据看板
+5. **API 升级**：RESTful API + 自动化测试保障质量
+6. **机器学习**：逻辑回归、决策树、随机森林公平比较
+7. **模型部署**：随机森林模型序列化与预测管线
 
-### 品类用户分布
-
-| 偏好品类 | 用户数 | 流失率 | 平均订单数 |
-|---------|--------|--------|-----------|
-| 📱 Mobile Phone | 2,080 | 27.4% | 2.18 |
-| 💻 Laptop & Accessory | 2,050 | 10.2% | 2.77 |
-| 👗 Fashion | 826 | 15.5% | 3.87 |
-| 🛒 Grocery | 410 | 4.9% | 4.60 |
-| 📦 Others | 264 | 7.6% | 5.25 |
-
-**关键发现**:
-- 🎯 新用户流失率高达 **53.5%**，是运营重点
-- 📱 Mobile Phone 用户最多但流失率也最高
-- 🛒 Grocery 品类流失率最低（4.9%），用户粘性最强
-- 💻 Laptop 品类用户多且流失率低，是高价值品类
-
----
-
-## 🛠️ 技术栈
-
-| 层级 | 技术 |
-|------|------|
-| 数据分析 | Python, Pandas, NumPy |
-| 可视化 | Matplotlib, Seaborn |
-| Web 框架 | Flask 3.x |
-| 前端 | HTML5, CSS3, Vanilla JS |
-| 测试 | pytest |
-| 版本控制 | Git, GitHub |
-
----
-
-## 📝 实习日志
-
-| 日期 | 主题 | 关键产出 |
-|------|------|---------|
-| Day 03 | NumPy & Pandas 基础 | 商品维度统计分析 Notebook |
-| Day 04 | 数据清洗与预处理 | 清洗后数据集 + 清洗流水线 |
-| Day 05 | 用户流失与分群 | RFM模型 + 生命周期分析 |
-| Day 06 | 数据可视化 | 4张专业图表 + 可视化面板 |
-| Day 07 | Flask Web 应用 | 完整数据分析 Web 系统 |
-
----
-
-## 📄 License
-
-MIT License
+**核心价值**：从数据清洗到模型部署的全链路实践，形成了"**数据→分析→可视化→应用→模型→业务**"的完整闭环。
 
 ---
 
 <div align="center">
 
-**Built with ❤️ using Python + Flask + Pandas**
+**Built with ❤️ by 陈子萌 (24012474) · 中央民族大学 · 2026 暑期实训**
 
-[📊 查看数据看板](http://127.0.0.1:5000) · [🤖 智能问答](http://127.0.0.1:5000/assistant) · [📈 生命周期分析](http://127.0.0.1:5000/segments)
+[![Flask](https://img.shields.io/badge/Flask-3.0+-green.svg)](https://flask.palletsprojects.com/)
+[![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.3+-orange.svg)](https://scikit-learn.org/)
+[![Pandas](https://img.shields.io/badge/Pandas-2.0+-red.svg)](https://pandas.pydata.org/)
 
 </div>
